@@ -1,0 +1,33 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group = 'com.senthora.gatlingfx'
+version = '1.0'
+
+gradlePlugin {
+    plugins {
+        gatlingfx {
+            id = 'com.senthora.gatlingfx'
+            implementationClass = 'com.senthora.gatlingfx.gradle.GatlingFxPlugin'
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.senthora.gatlingfx:gatlingfx-runtime:0.1.0-SNAPSHOT'
+
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
