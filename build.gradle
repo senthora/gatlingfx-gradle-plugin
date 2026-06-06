@@ -6,6 +6,14 @@ plugins {
 group = 'com.senthora.gatlingfx'
 version = '0.1.0'
 
+ext.runtimeVersion = '0.1.0-SNAPSHOT'
+
+processResources {
+    filesMatching('gatlingfx.properties') {
+        expand(runtimeVersion: runtimeVersion)
+    }
+}
+
 gradlePlugin {
     plugins {
         gatlingfx {
@@ -21,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.senthora.gatlingfx:gatlingfx-runtime:0.1.0-SNAPSHOT'
+    implementation "com.senthora.gatlingfx:gatlingfx-runtime:$runtimeVersion"
 
     testImplementation platform('org.junit:junit-bom:6.0.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
