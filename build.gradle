@@ -10,7 +10,7 @@ gradlePlugin {
     plugins {
         gatlingfx {
             id = 'com.senthora.gatlingfx'
-            implementationClass = 'com.senthora.gatlingfx.gradle.GatlingFxPlugin'
+            implementationClass = 'com.senthora.gatlingfx.gradle.plugin.GatlingFxPlugin'
         }
     }
 }
