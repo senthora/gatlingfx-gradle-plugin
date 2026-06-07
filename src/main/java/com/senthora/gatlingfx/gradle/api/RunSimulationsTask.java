@@ -9,6 +9,7 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.tasks.*;
 import org.gradle.api.tasks.options.Option;
+import org.gradle.work.DisableCachingByDefault;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 /**
  * Executes GatlingFx simulations.
  */
+@DisableCachingByDefault
 public abstract class RunSimulationsTask extends JavaExec {
 
     private static final String LOGS_DIRECTORY_PROPERTY = "gatlingfx.logs.directory";
