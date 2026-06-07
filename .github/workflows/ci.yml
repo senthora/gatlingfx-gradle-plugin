@@ -49,3 +49,9 @@ jobs:
           files: build/reports/jacoco/test/jacocoTestReport.xml
           disable_search: true
           fail_ci_if_error: true
+      - name: Publish snapshot
+        if: github.ref == 'refs/heads/dev'
+        run: ./gradlew publish
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
