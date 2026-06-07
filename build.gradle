@@ -48,9 +48,7 @@ testing {
     suites {
         integrationTest(JvmTestSuite) {
             dependencies {
-                implementation(project()) {
-                    exclude group: "ch.qos.logback", module: "logback-classic"
-                }
+                implementation(project())
                 implementation testFixtures(project())
                 implementation platform(libs.junit.bom)
                 implementation libs.junit.jupiter
@@ -68,6 +66,10 @@ testing {
             }
         }
     }
+}
+
+configurations.configureEach {
+    exclude group: "ch.qos.logback", module: "logback-classic"
 }
 
 test {
