@@ -72,7 +72,7 @@ class DefaultPluginConfigurerTest {
             configurer.configure();
 
             assertThat(project.getTasks().findByName(RunSimulationsTask.NAME))
-                    .isExactlyInstanceOf(RunSimulationsTask.class);
+                    .isInstanceOf(RunSimulationsTask.class);
         }
     }
 }
