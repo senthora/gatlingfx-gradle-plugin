@@ -4,6 +4,16 @@ on:
   workflow_dispatch:
   push:
     branches: [ master, dev ]
+    paths:
+      - ".github/workflows/**"
+      - "build.gradle"
+      - "settings.gradle"
+      - "gradle.properties"
+      - "gradle/**"
+      - "gradlew"
+      - "gradlew.bat"
+      - "src/**"
+      - '!**/*.md'
 
 jobs:
   test:
