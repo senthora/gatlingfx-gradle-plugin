@@ -26,6 +26,9 @@ public interface GatlingFxPluginConfigurer {
 
     /**
      * Applies GatlingFx plugin configuration.
+     * <p>
+     * Registers tasks and configures
+     * dependencies for configured source sets.
      */
     void configure();
 }
