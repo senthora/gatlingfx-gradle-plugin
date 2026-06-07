@@ -87,6 +87,14 @@ tasks.withType(Test).configureEach {
     jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED')
 }
 
+tasks.named("integrationTest") {
+    shouldRunAfter(tasks.named("test"))
+}
+
+tasks.named("functionalTest") {
+    shouldRunAfter(tasks.named("integrationTest"))
+}
+
 jacocoTestReport {
     executionData.from fileTree(layout.buildDirectory.dir("jacoco")) {
         include("*.exec")
