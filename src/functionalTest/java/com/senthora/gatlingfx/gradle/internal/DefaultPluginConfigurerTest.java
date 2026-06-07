@@ -2,15 +2,13 @@ package com.senthora.gatlingfx.gradle.internal;
 
 import com.senthora.gatlingfx.gradle.support.TestProject;
 
-import org.gradle.testkit.runner.BuildResult;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Path;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.senthora.gatlingfx.gradle.support.BuildResultAssertions.*;
 
 class DefaultPluginConfigurerTest {
 
@@ -25,7 +23,9 @@ class DefaultPluginConfigurerTest {
                 directory.resolve("configured-source-sets")
         );
         var result = project.run("printDependencies");
-        assertResultContainsDependencies(result);
+
+        assertContainsImplementationDependency(result, GatlingFxDependency.RUNTIME_API);
+        assertContainsRuntimeDependency(result, GatlingFxDependency.RUNTIME);
     }
 
     @Test
@@ -36,17 +36,8 @@ class DefaultPluginConfigurerTest {
                 directory.resolve("custom-source-set")
         );
         var result = project.run("printDependencies");
-        assertResultContainsDependencies(result);
-    }
 
-    private static void assertResultContainsDependencies(BuildResult result) {
-        var output = result.getOutput();
-
-        assertThat(output).contains("IMPLEMENTATION:" +
-                GatlingFxDependency.RUNTIME_API.resolve("")
-        );
-        assertThat(output).contains("RUNTIME:" +
-                GatlingFxDependency.RUNTIME.resolve("")
-        );
+        assertContainsImplementationDependency(result, GatlingFxDependency.RUNTIME_API);
+        assertContainsRuntimeDependency(result, GatlingFxDependency.RUNTIME);
     }
 }
