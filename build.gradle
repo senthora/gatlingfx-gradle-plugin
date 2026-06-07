@@ -45,7 +45,9 @@ testing {
     suites {
         integrationTest(JvmTestSuite) {
             dependencies {
-                implementation project()
+                implementation(project()) {
+                    exclude group: "ch.qos.logback", module: "logback-classic"
+                }
                 implementation platform(libs.junit.bom)
                 implementation libs.junit.jupiter
                 implementation libs.assertj.core
