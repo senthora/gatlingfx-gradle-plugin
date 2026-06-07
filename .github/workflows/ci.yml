@@ -49,8 +49,18 @@ jobs:
           files: build/reports/jacoco/test/jacocoTestReport.xml
           disable_search: true
           fail_ci_if_error: true
+      - name: Detect publication changes
+        id: changes
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            publish:
+              - 'src/**'
+              - 'build.gradle'
+              - 'gradle.properties'
+              - 'settings.gradle'
       - name: Publish snapshot
-        if: github.ref == 'refs/heads/dev'
+        if: github.ref == 'refs/heads/dev' && steps.changes.outputs.publish == 'true'
         run: ./gradlew publish --info --console=plain | grep -E "Publish|Upload"
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
