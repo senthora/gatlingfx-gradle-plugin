@@ -48,6 +48,7 @@ testing {
     suites {
         integrationTest(JvmTestSuite) {
             dependencies {
+                implementation gradleApi()
                 implementation(project())
                 implementation "com.senthora.gatlingfx:gatlingfx-runtime:$runtimeVersion"
                 implementation testFixtures(project())
@@ -76,9 +77,10 @@ configurations.configureEach {
     exclude group: "ch.qos.logback", module: "logback-classic"
 }
 
-test {
+tasks.withType(Test).configureEach {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
     }
+    jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED')
 }
