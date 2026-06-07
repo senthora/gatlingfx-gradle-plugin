@@ -1,19 +1,16 @@
 package com.senthora.gatlingfx.gradle.internal;
 
 import com.senthora.gatlingfx.gradle.support.Configurations;
+import com.senthora.gatlingfx.gradle.support.DependencyAssertions;
 import com.senthora.gatlingfx.gradle.support.DependencyCoordinates;
 import com.senthora.gatlingfx.gradle.support.SourceSets;
 
 import org.gradle.api.Project;
-import org.gradle.api.artifacts.Configuration;
-import org.gradle.api.artifacts.Dependency;
 import org.gradle.testfixtures.ProjectBuilder;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class GatlingFxDependenciesTest {
 
@@ -34,7 +31,10 @@ class GatlingFxDependenciesTest {
         var dependencies = new GatlingFxDependencies(project, properties);
         dependencies.add(configuration, GatlingFxDependency.RUNTIME);
 
-        assertContainsDependency(configuration, DependencyCoordinates.RUNTIME);
+        DependencyAssertions.assertContains(
+                configuration,
+                DependencyCoordinates.RUNTIME
+        );
     }
 
     @Test
@@ -48,11 +48,11 @@ class GatlingFxDependenciesTest {
                 sourceSets.all(),
                 GatlingFxDependency.RUNTIME
         );
-        assertContainsDependency(
+        DependencyAssertions.assertContains(
                 configurations.mainImplementation(),
                 DependencyCoordinates.RUNTIME
         );
-        assertContainsDependency(
+        DependencyAssertions.assertContains(
                 configurations.testImplementation(),
                 DependencyCoordinates.RUNTIME
         );
@@ -69,29 +69,13 @@ class GatlingFxDependenciesTest {
                 sourceSets.all(),
                 GatlingFxDependency.RUNTIME
         );
-        assertContainsDependency(
+        DependencyAssertions.assertContains(
                 configurations.mainRuntimeOnly(),
                 DependencyCoordinates.RUNTIME
         );
-        assertContainsDependency(
+        DependencyAssertions.assertContains(
                 configurations.testRuntimeOnly(),
                 DependencyCoordinates.RUNTIME
         );
-    }
-
-    private static void assertDependency(Dependency actual, DependencyCoordinates expected) {
-        assertThat(actual.getGroup()).isEqualTo(expected.group());
-        assertThat(actual.getName()).isEqualTo(expected.name());
-        assertThat(actual.getVersion()).isEqualTo(expected.version());
-    }
-
-    private static void assertContainsDependency(
-            Configuration configuration,
-            DependencyCoordinates expected
-    ) {
-        var dependencies = configuration.getDependencies();
-        var actual = dependencies.iterator().next();
-
-        assertDependency(actual, expected);
     }
 }
