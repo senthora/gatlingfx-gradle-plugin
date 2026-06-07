@@ -49,7 +49,9 @@ testing {
         integrationTest(JvmTestSuite) {
             dependencies {
                 implementation(project())
+                implementation "com.senthora.gatlingfx:gatlingfx-runtime:$runtimeVersion"
                 implementation testFixtures(project())
+
                 implementation platform(libs.junit.bom)
                 implementation libs.junit.jupiter
                 implementation libs.assertj.core
