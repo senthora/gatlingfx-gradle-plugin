@@ -1,5 +1,6 @@
 plugins {
     id 'java-gradle-plugin'
+    id 'java-test-fixtures'
     id 'maven-publish'
 }
 
@@ -48,6 +49,7 @@ testing {
                 implementation(project()) {
                     exclude group: "ch.qos.logback", module: "logback-classic"
                 }
+                implementation testFixtures(project())
                 implementation platform(libs.junit.bom)
                 implementation libs.junit.jupiter
                 implementation libs.assertj.core
