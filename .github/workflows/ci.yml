@@ -50,9 +50,10 @@ jobs:
           disable_search: true
           fail_ci_if_error: true
       - name: Detect publication changes
-        id: changes
         uses: dorny/paths-filter@v4
+        id: changes
         with:
+          base: ${{ github.ref_name }}
           filters: |
             publish:
               - 'src/**'
