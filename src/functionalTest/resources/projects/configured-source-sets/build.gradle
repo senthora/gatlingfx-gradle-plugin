@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'com.senthora.gatlingfx'
+}
+
+repositories {}
+
+tasks.register('printDependencies') {
+    doLast {
+        configurations.testImplementation.dependencies.each {
+            println "IMPLEMENTATION:${it.group}:${it.name}:${it.version}"
+        }
+        configurations.testRuntimeOnly.dependencies.each {
+            println "RUNTIME:${it.group}:${it.name}:${it.version}"
+        }
+    }
+}
