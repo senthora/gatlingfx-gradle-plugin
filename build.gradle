@@ -48,6 +48,15 @@ testing {
                 implementation(project()) {
                     exclude group: "ch.qos.logback", module: "logback-classic"
                 }
+                implementation platform(libs.junit.bom)
+                implementation libs.junit.jupiter
+                implementation libs.assertj.core
+            }
+        }
+        functionalTest(JvmTestSuite) {
+            dependencies {
+                implementation(project())
+
                 implementation gradleTestKit()
                 implementation platform(libs.junit.bom)
                 implementation libs.junit.jupiter
