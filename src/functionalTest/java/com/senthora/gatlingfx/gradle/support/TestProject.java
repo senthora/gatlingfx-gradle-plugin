@@ -31,6 +31,7 @@ public final class TestProject {
     public BuildResult run(String... arguments) {
         return gradleRunner()
                 .withArguments(arguments)
+                .forwardOutput()
                 .build();
     }
 
