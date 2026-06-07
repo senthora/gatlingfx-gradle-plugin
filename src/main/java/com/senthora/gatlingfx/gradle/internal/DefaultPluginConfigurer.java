@@ -1,9 +1,6 @@
 package com.senthora.gatlingfx.gradle.internal;
 
-import com.senthora.gatlingfx.gradle.api.GatlingFxExtension;
-import com.senthora.gatlingfx.gradle.api.GatlingFxPluginConfigurer;
-import com.senthora.gatlingfx.gradle.api.JvmProcessConfigurer;
-import com.senthora.gatlingfx.gradle.api.RunSimulationsTask;
+import com.senthora.gatlingfx.gradle.api.*;
 
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
@@ -31,13 +28,18 @@ public final class DefaultPluginConfigurer implements GatlingFxPluginConfigurer 
     private final GatlingFxExtension extension;
     private final GatlingFxProperties properties;
 
-    public DefaultPluginConfigurer(Project project, GatlingFxExtension extension) {
+    public DefaultPluginConfigurer(
+            Project project,
+            GatlingFxExtension extension,
+            GatlingFxPropertiesLoader propertiesLoader
+    ) {
         Objects.requireNonNull(project, "project must not be null");
         Objects.requireNonNull(extension, "extension must not be null");
+        Objects.requireNonNull(propertiesLoader, "propertiesLoader must not be null");
 
         this.project = project;
         this.extension = extension;
-        this.properties = GatlingFxProperties.load();
+        this.properties = propertiesLoader.load();
     }
 
     /**

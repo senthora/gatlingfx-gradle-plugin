@@ -1,6 +1,7 @@
 package com.senthora.gatlingfx.gradle.internal;
 
 import com.senthora.gatlingfx.gradle.api.GatlingFxExtension;
+import com.senthora.gatlingfx.gradle.api.GatlingFxPropertiesLoader;
 
 import org.gradle.api.Project;
 
@@ -17,9 +18,10 @@ class DefaultPluginConfigurerTest {
     @SuppressWarnings("DataFlowIssue")
     @DisplayName("Should throw NullPointerException when project is null")
     void should_ThrowNullPointerException_when_ProjectIsNull() {
-        GatlingFxExtension extension = Mockito.mock(GatlingFxExtension.class);
+        var extension = Mockito.mock(GatlingFxExtension.class);
+        var loader = Mockito.mock(GatlingFxPropertiesLoader.class);
 
-        assertThatThrownBy(() -> new DefaultPluginConfigurer(null, extension))
+        assertThatThrownBy(() -> new DefaultPluginConfigurer(null, extension, loader))
                 .isInstanceOf(NullPointerException.class);
     }
 
@@ -27,9 +29,21 @@ class DefaultPluginConfigurerTest {
     @SuppressWarnings("DataFlowIssue")
     @DisplayName("Should throw NullPointerException when extension is null")
     void should_ThrowNullPointerException_when_ExtensionIsNull() {
-        Project project = Mockito.mock(Project.class);
+        var project = Mockito.mock(Project.class);
+        var loader = Mockito.mock(GatlingFxPropertiesLoader.class);
 
-        assertThatThrownBy(() -> new DefaultPluginConfigurer(project, null))
+        assertThatThrownBy(() -> new DefaultPluginConfigurer(project, null, loader))
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    @SuppressWarnings("DataFlowIssue")
+    @DisplayName("Should throw NullPointerException when properties loader is null")
+    void should_throw_NullPointerException_when_PropertiesLoaderIsNull() {
+        var project = Mockito.mock(Project.class);
+        var extension = Mockito.mock(GatlingFxExtension.class);
+
+        assertThatThrownBy(() -> new DefaultPluginConfigurer(project, extension, null))
                 .isInstanceOf(NullPointerException.class);
     }
 }

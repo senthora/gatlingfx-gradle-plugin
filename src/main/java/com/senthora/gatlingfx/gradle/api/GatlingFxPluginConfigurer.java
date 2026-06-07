@@ -18,7 +18,10 @@ public interface GatlingFxPluginConfigurer {
      * @throws NullPointerException if any argument is null
      */
     static GatlingFxPluginConfigurer create(Project project, GatlingFxExtension extension) {
-        return new DefaultPluginConfigurer(project, extension);
+        var classLoader = GatlingFxPluginConfigurer.class.getClassLoader();
+        var propertiesLoader = GatlingFxPropertiesLoader.classpath(classLoader);
+
+        return new DefaultPluginConfigurer(project, extension, propertiesLoader);
     }
 
     /**
