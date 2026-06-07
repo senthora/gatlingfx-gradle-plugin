@@ -5,6 +5,7 @@ plugins {
     id 'java-gradle-plugin'
     id 'java-test-fixtures'
     id 'maven-publish'
+    id 'signing'
     id 'jacoco'
     id 'io.github.gmazzo.gradle.testkit.jacoco' version '1.1.0'
 }
@@ -164,4 +165,10 @@ publishing {
         }
     }
 }
+
+if (!version.toString().endsWith('-SNAPSHOT')) {
+    signing {
+        useGpgCmd()
+        sign publishing.publications.pluginMaven
+    }
 }
