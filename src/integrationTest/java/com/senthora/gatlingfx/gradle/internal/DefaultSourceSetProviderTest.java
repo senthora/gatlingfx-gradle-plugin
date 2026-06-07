@@ -1,6 +1,6 @@
 package com.senthora.gatlingfx.gradle.internal;
 
-import com.senthora.gatlingfx.gradle.internal.support.SourceSets;
+import com.senthora.gatlingfx.gradle.support.SourceSets;
 
 import org.gradle.api.Project;
 import org.gradle.api.UnknownDomainObjectException;

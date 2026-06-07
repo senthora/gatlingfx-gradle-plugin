@@ -1,4 +1,4 @@
-package com.senthora.gatlingfx.gradle.internal.support;
+package com.senthora.gatlingfx.gradle.support;
 
 import org.gradle.api.Project;
 import org.gradle.api.tasks.SourceSet;

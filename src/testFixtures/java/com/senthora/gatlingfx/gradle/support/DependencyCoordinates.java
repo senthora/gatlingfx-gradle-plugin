@@ -1,4 +1,4 @@
-package com.senthora.gatlingfx.gradle.internal.support;
+package com.senthora.gatlingfx.gradle.support;
 
 public record DependencyCoordinates(String group, String name, String version) {
 

@@ -1,8 +1,8 @@
 package com.senthora.gatlingfx.gradle.internal;
 
-import com.senthora.gatlingfx.gradle.internal.support.Configurations;
-import com.senthora.gatlingfx.gradle.internal.support.DependencyCoordinates;
-import com.senthora.gatlingfx.gradle.internal.support.SourceSets;
+import com.senthora.gatlingfx.gradle.support.Configurations;
+import com.senthora.gatlingfx.gradle.support.DependencyCoordinates;
+import com.senthora.gatlingfx.gradle.support.SourceSets;
 
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
