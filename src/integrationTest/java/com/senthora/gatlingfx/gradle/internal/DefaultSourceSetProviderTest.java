@@ -42,13 +42,15 @@ class DefaultSourceSetProviderTest {
     }
 
     @Test
-    @DisplayName("Should throw UnknownDomainObjectException when source set does not exist")
-    void should_ThrowUnknownDomainObjectException_when_SourceSetDoesNotExist() {
-        SourceSets.create(project);
+    @DisplayName("Should ignore source set names that do not exist")
+    void should_IgnoreSourceSetNames_when_SourceSetDoesNotExist() {
+        var sourceSets = SourceSets.create(project);
 
         var provider = new DefaultSourceSetProvider(project);
-
-        assertThatThrownBy(() -> provider.get(Set.of("missing")))
-                .isInstanceOf(UnknownDomainObjectException.class);
+        var actual = provider.get(Set.of(
+                SourceSet.MAIN_SOURCE_SET_NAME,
+                "missing"
+        ));
+        assertThat(actual).containsExactly(sourceSets.main());
     }
 }

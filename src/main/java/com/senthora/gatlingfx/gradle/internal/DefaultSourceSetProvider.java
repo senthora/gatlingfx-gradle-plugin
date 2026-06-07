@@ -1,10 +1,10 @@
 package com.senthora.gatlingfx.gradle.internal;
 
-
 import org.gradle.api.Project;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.SourceSetContainer;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,8 @@ public final class DefaultSourceSetProvider implements SourceSetProvider {
     @Override
     public Set<SourceSet> get(Set<String> names) {
         return names.stream()
-                .map(delegate::getByName)
+                .map(delegate::findByName)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toUnmodifiableSet());
     }
 }
