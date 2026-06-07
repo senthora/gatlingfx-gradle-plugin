@@ -15,7 +15,7 @@ class GatlingFxDependenciesTest {
     @SuppressWarnings("DataFlowIssue")
     @DisplayName("Should throw NullPointerException when project is null")
     void should_ThrowNullPointerException_when_ProjectIsNull() {
-        GatlingFxProperties properties = Mockito.mock(GatlingFxProperties.class);
+        var properties = Mockito.mock(GatlingFxProperties.class);
 
         assertThatThrownBy(() -> new GatlingFxDependencies(null, properties))
                 .isInstanceOf(NullPointerException.class);
@@ -25,7 +25,7 @@ class GatlingFxDependenciesTest {
     @SuppressWarnings("DataFlowIssue")
     @DisplayName("Should throw NullPointerException when properties is null")
     void should_ThrowNullPointerException_when_PropertiesIsNull() {
-        Project project = Mockito.mock(Project.class);
+        var project = Mockito.mock(Project.class);
 
         assertThatThrownBy(() -> new GatlingFxDependencies(project, null))
                 .isInstanceOf(NullPointerException.class);
