@@ -3,7 +3,7 @@ package com.senthora.gatlingfx.gradle.internal;
 /**
  * Supported GatlingFx module dependencies.
  */
-enum GatlingFxDependency {
+public enum GatlingFxDependency {
 
     RUNTIME("com.senthora.gatlingfx:gatlingfx-runtime"),
     RUNTIME_API("com.senthora.gatlingfx:gatlingfx-runtime-api");
@@ -22,7 +22,7 @@ enum GatlingFxDependency {
      * @return resolved dependency notation
      * @throws NullPointerException if {@code version} is null
      */
-    String resolve(String version) {
+    public String resolve(String version) {
         return module + ':' + version;
     }
 }
