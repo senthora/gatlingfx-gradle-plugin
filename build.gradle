@@ -2,6 +2,8 @@ plugins {
     id 'java-gradle-plugin'
     id 'java-test-fixtures'
     id 'maven-publish'
+    id 'jacoco'
+    id 'io.github.gmazzo.gradle.testkit.jacoco' version '1.1.0'
 }
 
 group = 'com.senthora.gatlingfx'
@@ -83,4 +85,14 @@ tasks.withType(Test).configureEach {
         events "passed", "skipped", "failed"
     }
     jvmArgs('--add-opens=java.base/java.lang=ALL-UNNAMED')
+}
+
+jacocoTestReport {
+    executionData.from fileTree(layout.buildDirectory.dir("jacoco")) {
+        include("*.exec")
+    }
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }

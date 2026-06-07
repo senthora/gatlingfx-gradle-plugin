@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.senthora.gatlingfx'
+    id 'jacoco-testkit-coverage'
 }
 
 sourceSets {
