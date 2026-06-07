@@ -9,7 +9,7 @@ import java.net.URLClassLoader;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class GatlingFxPropertiesTest {
+class ClasspathPropertiesLoaderTest {
 
     @Test
     @DisplayName("Should load properties when properties file exists")
