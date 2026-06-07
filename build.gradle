@@ -124,6 +124,13 @@ jacocoTestReport {
         html.required = true
     }
 }
+
+[configurations.testFixturesApiElements, configurations.testFixturesRuntimeElements].each {
+    components.java.withVariantsFromConfiguration(it) {
+        skip()
+    }
+}
+
 publishing {
     publications {
         pluginMaven(MavenPublication) {
