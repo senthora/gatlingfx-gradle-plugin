@@ -32,4 +32,17 @@ class ClasspathPropertiesLoaderTest {
         assertThatThrownBy(loader::load)
                 .isInstanceOf(IllegalStateException.class);
     }
+
+    @Test
+    @DisplayName("Should throw IllegalStateException when required property is missing")
+    void should_ThrowIllegalStateException_when_RequiredPropertyIsMissing() {
+        var classLoader = new URLClassLoader(
+                new URL[]{getClass().getResource("/missing-runtime-version/")},
+                null
+        );
+        var loader = new ClasspathPropertiesLoader(classLoader);
+
+        assertThatThrownBy(loader::load)
+                .isInstanceOf(IllegalStateException.class);
+    }
 }
