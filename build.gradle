@@ -41,6 +41,19 @@ dependencies {
     testImplementation libs.mockito.core
 }
 
+testing {
+    suites {
+        integrationTest(JvmTestSuite) {
+            dependencies {
+                implementation project()
+                implementation platform(libs.junit.bom)
+                implementation libs.junit.jupiter
+                implementation libs.assertj.core
+            }
+        }
+    }
+}
+
 test {
     useJUnitPlatform()
     testLogging {
