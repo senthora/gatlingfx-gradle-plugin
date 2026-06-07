@@ -33,7 +33,14 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
+    withJavadocJar()
+    withSourcesJar()
 }
+tasks.withType(Javadoc).configureEach {
+    failOnError = false
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
