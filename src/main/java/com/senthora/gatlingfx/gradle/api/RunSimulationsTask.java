@@ -1,7 +1,6 @@
 package com.senthora.gatlingfx.gradle.api;
 
 import com.senthora.gatlingfx.gradle.internal.SourceSetProvider;
-import com.senthora.gatlingfx.runtime.core.application.GatlingFx;
 
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.model.ObjectFactory;
@@ -21,6 +20,7 @@ import java.util.Set;
 @DisableCachingByDefault
 public abstract class RunSimulationsTask extends JavaExec {
 
+    private static final String MAIN_CLASS = "com.senthora.gatlingfx.runtime.core.application.GatlingFx";
     private static final String LOGS_DIRECTORY_PROPERTY = "gatlingfx.logs.directory";
     public static final String NAME = "gatlingfxRun";
 
@@ -34,7 +34,7 @@ public abstract class RunSimulationsTask extends JavaExec {
         this.quiet = objects.property(Boolean.class);
         this.failFast = objects.property(Boolean.class);
 
-        getMainClass().set(GatlingFx.class.getName());
+        getMainClass().set(MAIN_CLASS);
 
         JvmProcessConfigurer.configureModuleAccess(this);
         classpath(getSimulationClasspath());

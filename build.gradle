@@ -51,8 +51,6 @@ repositories {
 }
 
 dependencies {
-    implementation "com.senthora.gatlingfx:gatlingfx-runtime:$runtimeVersion"
-
     testFixturesImplementation libs.assertj.core
 
     testImplementation platform(libs.junit.bom)
