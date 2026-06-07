@@ -86,6 +86,7 @@ configurations.configureEach {
 }
 
 tasks.withType(Test).configureEach {
+    outputs.upToDateWhen { false }
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
