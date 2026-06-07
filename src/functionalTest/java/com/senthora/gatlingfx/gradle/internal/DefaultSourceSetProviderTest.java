@@ -28,4 +28,17 @@ class DefaultSourceSetProviderTest {
         assertContainsImplementationDependency(result, GatlingFxDependency.RUNTIME_API);
         assertContainsRuntimeDependency(result, GatlingFxDependency.RUNTIME);
     }
+
+    @Test
+    @DisplayName("Should use default source set when configured source sets do not exist")
+    void should_UseDefaultSourceSet_when_ConfiguredSourceSetsDoNotExist() {
+        var project = new TestProject(
+                "all-source-sets-missing",
+                directory.resolve("all-source-sets-missing")
+        );
+        var result = project.run("printDependencies");
+
+        assertContainsImplementationDependency(result, GatlingFxDependency.RUNTIME_API);
+        assertContainsRuntimeDependency(result, GatlingFxDependency.RUNTIME);
+    }
 }

@@ -63,8 +63,9 @@ public final class DefaultPluginConfigurer implements GatlingFxPluginConfigurer 
         dependencies.add(runtimeClasspath, GatlingFxDependency.RUNTIME);
 
         project.afterEvaluate(ignored -> {
-            var sourceSets = sourceSetProvider.get(
-                    extension.getSourceSets().get()
+            var sourceSets = sourceSetProvider.getOrDefault(
+                    extension.getSourceSets().get(),
+                    Set.of(DEFAULT_SOURCE_SET)
             );
             dependencies.addImplementation(
                     sourceSets,

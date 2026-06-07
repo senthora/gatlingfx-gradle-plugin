@@ -13,6 +13,7 @@ import org.gradle.work.DisableCachingByDefault;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Executes GatlingFx simulations.
@@ -105,9 +106,11 @@ public abstract class RunSimulationsTask extends JavaExec {
             Configuration runtimeClasspath,
             SourceSetProvider sourceSetProvider
     ) {
+        var defaultSourceSets = Set.of(SourceSet.TEST_SOURCE_SET_NAME);
         getSimulationClasspath().from(
                 extension.getSourceSets().map(names ->
-                        sourceSetProvider.get(names).stream()
+                        sourceSetProvider.getOrDefault(names, defaultSourceSets)
+                                .stream()
                                 .map(SourceSet::getRuntimeClasspath)
                                 .toList()
         ));
