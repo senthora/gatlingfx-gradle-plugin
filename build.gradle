@@ -151,4 +151,17 @@ publishing {
             }
         }
     }
+    repositories {
+        if (version.toString().endsWith("-SNAPSHOT")) {
+            maven {
+                name = "snapshots"
+                url = "https://central.sonatype.com/repository/maven-snapshots/"
+                credentials {
+                    username = findProperty("mavenCentralUsername")
+                    password = findProperty("mavenCentralPassword")
+                }
+            }
+        }
+    }
+}
 }
