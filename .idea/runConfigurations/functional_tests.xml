@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="functional-tests" type="JUnit" factoryName="JUnit">
+    <classpathModifications>
+      <entry path="$PROJECT_DIR$/build/pluginUnderTestMetadata" />
+    </classpathModifications>
     <module name="gatlingfx-gradle-plugin.functionalTest" />
     <extension name="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
@@ -19,6 +22,7 @@
     <option name="VM_PARAMETERS" value="-ea --add-opens=java.base/java.lang=ALL-UNNAMED" />
     <method v="2">
       <option name="Make" enabled="true" />
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="pluginUnderTestMetadata" externalProjectPath="/var/home/meowpow/Development/github.com/gatlingfx-gradle-plugin" vmOptions="" scriptParameters="" />
     </method>
   </configuration>
 </component>
