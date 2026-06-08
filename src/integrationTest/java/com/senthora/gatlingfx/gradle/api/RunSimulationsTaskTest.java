@@ -1,7 +1,5 @@
 package com.senthora.gatlingfx.gradle.api;
 
-import com.senthora.gatlingfx.runtime.core.application.GatlingFx;
-
 import org.gradle.api.Project;
 import org.gradle.testfixtures.ProjectBuilder;
 
@@ -35,7 +33,7 @@ class RunSimulationsTaskTest {
                     RunSimulationsTask.class
             );
             var mainClass = task.get().getMainClass().get();
-            assertThat(mainClass).isEqualTo(GatlingFx.class.getName());
+            assertThat(mainClass).isEqualTo(RunSimulationsTask.MAIN_CLASS);
         }
     }
 

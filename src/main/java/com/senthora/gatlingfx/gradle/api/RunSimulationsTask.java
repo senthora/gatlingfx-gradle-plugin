@@ -20,7 +20,7 @@ import java.util.Set;
 @DisableCachingByDefault
 public abstract class RunSimulationsTask extends JavaExec {
 
-    private static final String MAIN_CLASS = "com.senthora.gatlingfx.runtime.core.application.GatlingFx";
+    static final String MAIN_CLASS = "com.senthora.gatlingfx.runtime.core.application.GatlingFx";
     private static final String LOGS_DIRECTORY_PROPERTY = "gatlingfx.logs.directory";
     public static final String NAME = "gatlingfxRun";
 
