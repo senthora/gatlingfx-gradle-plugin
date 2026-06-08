@@ -4,6 +4,7 @@ import com.senthora.gatlingfx.gradle.api.*;
 
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.testing.Test;
 
 import java.util.Objects;
@@ -52,21 +53,35 @@ public final class DefaultPluginConfigurer implements GatlingFxPluginConfigurer 
      */
     @Override
     public void configure() {
-        // apply conventions before task registration
-        // so defaults are established before anything consumes the extension
+        var logger = project.getLogger();
+        logger.debug("Applying GatlingFx conventions");
+
         applyConventions();
 
         var sourceSetProvider = new DefaultSourceSetProvider(project);
         var dependencies = new GatlingFxDependencies(project, properties);
         var runtimeClasspath = createRuntimeClasspath();
 
+        logger.debug("Created {} configuration", RUNTIME_CLASSPATH);
+
         dependencies.add(runtimeClasspath, GatlingFxDependency.RUNTIME);
 
+        logger.debug("Added {} dependency to {}",
+                GatlingFxDependency.RUNTIME,
+                RUNTIME_CLASSPATH
+        );
         project.afterEvaluate(ignored -> {
             var sourceSets = sourceSetProvider.getOrDefault(
                     extension.getSourceSets().get(),
                     Set.of(DEFAULT_SOURCE_SET)
             );
+            if (logger.isDebugEnabled()) {
+                var sourceSetNames = sourceSets.stream()
+                        .map(SourceSet::getName)
+                        .toList();
+
+                logger.debug("Resolved source sets: {}", sourceSetNames);
+            }
             dependencies.addImplementation(
                     sourceSets,
                     GatlingFxDependency.RUNTIME_API
@@ -81,6 +96,8 @@ public final class DefaultPluginConfigurer implements GatlingFxPluginConfigurer 
                     .configureEach(JvmProcessConfigurer::configureModuleAccess)
             );
         });
+        logger.debug("Registering {} task", RunSimulationsTask.NAME);
+
         project.getTasks().register(
                 RunSimulationsTask.NAME,
                 RunSimulationsTask.class,

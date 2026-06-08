@@ -2,6 +2,9 @@ package com.senthora.gatlingfx.gradle.internal;
 
 import com.senthora.gatlingfx.gradle.api.GatlingFxPropertiesLoader;
 
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.Logging;
+
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Objects;
@@ -12,6 +15,7 @@ import java.util.Properties;
  */
 public final class ClasspathPropertiesLoader implements GatlingFxPropertiesLoader {
 
+    private static final Logger LOGGER = Logging.getLogger(ClasspathPropertiesLoader.class);
     static final String PROPERTIES_FILE = "gatlingfx.properties";
 
     private final ClassLoader classLoader;
@@ -27,6 +31,7 @@ public final class ClasspathPropertiesLoader implements GatlingFxPropertiesLoade
 
     @Override
     public GatlingFxProperties load() {
+        LOGGER.debug("Loading {}", PROPERTIES_FILE);
         var properties = new Properties();
 
         try (var stream = classLoader.getResourceAsStream(PROPERTIES_FILE)) {
@@ -35,9 +40,10 @@ public final class ClasspathPropertiesLoader implements GatlingFxPropertiesLoade
             }
             properties.load(stream);
 
-            return new GatlingFxProperties(
-                    requiredProperty(properties, "runtime.version")
-            );
+            var runtimeVersion = requiredProperty(properties, "runtime.version");
+            LOGGER.debug("Loaded runtime.version={}", runtimeVersion);
+
+            return new GatlingFxProperties(runtimeVersion);
         }
         catch (IOException e) {
             throw new UncheckedIOException("Failed reading " + PROPERTIES_FILE, e);

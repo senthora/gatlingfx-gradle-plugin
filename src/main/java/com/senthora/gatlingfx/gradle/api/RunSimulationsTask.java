@@ -106,19 +106,37 @@ public abstract class RunSimulationsTask extends JavaExec {
             Configuration runtimeClasspath,
             SourceSetProvider sourceSetProvider
     ) {
+        var logger = getLogger();
         var defaultSourceSets = Set.of(SourceSet.TEST_SOURCE_SET_NAME);
+
+        logger.debug("Configuring {} task", getName());
+
         getSimulationClasspath().from(
-                extension.getSourceSets().map(names ->
-                        sourceSetProvider.getOrDefault(names, defaultSourceSets)
-                                .stream()
-                                .map(SourceSet::getRuntimeClasspath)
-                                .toList()
-        ));
+                extension.getSourceSets().map(names -> {
+                    var sourceSets = sourceSetProvider.getOrDefault(
+                            names,
+                            defaultSourceSets
+                    );
+                    if (getLogger().isDebugEnabled()) {
+                        var sourceSetNames = sourceSets.stream()
+                                .map(SourceSet::getName)
+                                .toList();
+
+                        getLogger().debug("Resolved source sets: {}", sourceSetNames);
+                    }
+                    return sourceSets.stream()
+                            .map(SourceSet::getRuntimeClasspath)
+                            .toList();
+                })
+        );
         classpath(runtimeClasspath, getSimulationClasspath());
+
+        var logsDirectory = logsDirPath(extension);
         systemProperty(
                 LOGS_DIRECTORY_PROPERTY,
-                logsDirPath(extension)
+                logsDirectory
         );
+        getLogger().debug("Configured logs directory: {}", logsDirectory);
     }
 
     private static String logsDirPath(GatlingFxExtension extension) {

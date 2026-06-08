@@ -14,12 +14,20 @@ public final class GatlingFxPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
+        var logger = project.getLogger();
+
+        logger.info("Applying GatlingFx plugin to project '{}'", project.getPath());
+
         var extension = project.getExtensions().create(
                 GatlingFxExtension.name(),
                 GatlingFxExtension.class
         );
-       GatlingFxPluginConfigurer
-               .create(project, extension)
-               .configure();
+        logger.debug("Created {} extension", GatlingFxExtension.name());
+
+        GatlingFxPluginConfigurer
+                .create(project, extension)
+                .configure();
+
+        logger.info("GatlingFx plugin configured for project '{}'", project.getPath());
     }
 }
