@@ -27,9 +27,11 @@ Run a specific simulation:
 
 ## Usage
 
-### Extension
+### How do I configure the plugin?
 
-The plugin exposes configuration through `gatlingfx` extension.
+Use `gatlingfx` extension to customize simulation discovery and execution.
+
+For example:
 
 ```groovy
 gatlingfx {
@@ -38,30 +40,28 @@ gatlingfx {
 }
 ```
 
+The following properties are available:
+
 | Property        | Description                                          | Default           |
 |-----------------|------------------------------------------------------|-------------------|
 | `sourceSets`    | Source sets that contain GatlingFx simulations       | `['test']`        |
 | `logsDirectory` | Directory where GatlingFx execution logs are written | `build/gatlingfx` |
 
-### Conventions
+### What does the plugin configure?
 
 For each configured source set, the plugin:
 
-- Automatically discovers and executes simulations as JUnit tests
-- Adds GatlingFx runtime dependencies
-- Adds required Gatling dependencies
+- Discovers and executes GatlingFx simulations
+- Configures the source set to run GatlingFx simulations
+- Adds the required GatlingFx and Gatling dependencies
 
 By default, the plugin configures the `test` source set.
 
-### Tasks
+### How do I run simulations?
 
-The plugin registers a single task:
+Run all simulations with `gatlingfxRun`. See [Quick Start](#quick-start) for examples.
 
-| Task           | Description                    |
-|----------------|--------------------------------|
-| `gatlingfxRun` | Executes GatlingFx simulations |
-
-**Options**
+The following options are available:
 
 | Option         | Description                                             |
 |----------------|---------------------------------------------------------|
@@ -106,7 +106,7 @@ Build the plugin:
 ./gradlew build
 ```
 
-### Testing
+### Test
 
 Run unit tests:
 
