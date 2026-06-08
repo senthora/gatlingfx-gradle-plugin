@@ -13,14 +13,6 @@ plugins {
 group = 'com.senthora.gatlingfx'
 version = '0.1.0-SNAPSHOT'
 
-def runtimeVersion = '0.1.0-SNAPSHOT'
-
-processResources {
-    filesMatching('gatlingfx.properties') {
-        expand(runtimeVersion: runtimeVersion)
-    }
-}
-
 gradlePlugin {
     plugins {
         gatlingfx {
