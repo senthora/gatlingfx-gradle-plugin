@@ -69,6 +69,28 @@ The plugin registers a single task:
 | `--quiet`      | Suppress runtime console logging                        |
 | `--fail-fast`  | Stop execution after the first failed simulation        |
 
+### Where should I apply the plugin?
+
+GatlingFx operates on the project it is applied to. This means that applying the plugin to
+the root project does not automatically discover simulations in subprojects, as GatlingFx
+only scans source sets belonging to the project where the plugin is applied.
+
+In multi-module builds, apply the plugin to each module that contains simulations:
+
+```groovy
+subprojects {
+    apply plugin: 'com.senthora.gatlingfx'
+
+    gatlingfx {
+        sourceSets = ['integrationTest']
+    }
+}
+```
+
+> [!NOTE]
+> Configured source sets that do not exist are ignored.  
+> If none of the configured source sets exist, the plugin falls back to `test` source set.
+
 ## Development
 
 ### Requirements
